@@ -53,11 +53,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_BATTERY_PULSE = "battery_pulse";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
+    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
 
     private CheckBoxPreference mVolumeWake;
     private CheckBoxPreference mAccelerometer;
     private CheckBoxPreference mNotificationPulse;
     private CheckBoxPreference mBatteryPulse;
+    private CheckBoxPreference mNavigationBar;
 
     private final Configuration mCurConfig = new Configuration();
     
@@ -87,6 +89,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mScreenTimeoutPreference.setOnPreferenceChangeListener(this);
         disableUnusableTimeouts(mScreenTimeoutPreference);
         updateTimeoutPreferenceDescription(currentTimeout);
+
+        mFontSizePref = (ListPreference) findPreference(KEY_FONT_SIZE);
+        mFontSizePref.setOnPreferenceChangeListener(this);
 
         mNotificationPulse = (CheckBoxPreference) findPreference(KEY_NOTIFICATION_PULSE);
         if (mNotificationPulse != null
@@ -120,6 +125,17 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mVolumeWake.setChecked(Settings.System.getInt(resolver,
                     Settings.System.VOLUME_WAKE_SCREEN, 0) == 1);
 
+        }
+        // Toggle for navigation bar; only show if the nav bar is not necessary for device usage,
+        // otherwise user could get stuck without nav bar
+        mNavigationBar = (CheckBoxPreference) findPreference(KEY_NAVIGATION_BAR);
+        if(getResources().getBoolean(
+            com.android.internal.R.bool.config_showNavigationBar) == true) {
+                getPreferenceScreen().removePreference(mNavigationBar);
+        } else {
+            mNavigationBar.setChecked(Settings.System.getInt(resolver,
+                Settings.System.NAVIGATION_BAR_VISIBLE, 0) == 1);
+            mNavigationBar.setOnPreferenceChangeListener(this);
         }
     }
 
@@ -235,6 +251,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolumeWake) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN,
                     mVolumeWake.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mNavigationBar) {
+            boolean value = mNavigationBar.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_BAR_VISIBLE,
+                    value ? 1 : 0);
             return true;
         }
 
