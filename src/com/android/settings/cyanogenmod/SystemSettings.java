@@ -36,6 +36,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
+    private static final String KEY_POWER_WIDGET = "power_widget";
+    private static final String KEY_STATUS_BAR = "status_bar";
 
     private ListPreference mFontSizePref;
 
@@ -49,8 +51,13 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
         mFontSizePref = (ListPreference) findPreference(KEY_FONT_SIZE);
         mFontSizePref.setOnPreferenceChangeListener(this);
-        if (Utils.isScreenLarge()) {
+
+        if (!Utils.isScreenLarge()) {
+            getPreferenceScreen().removePreference(findPreference(KEY_COMBINED_BAR));
+        } else {
             getPreferenceScreen().removePreference(findPreference(KEY_NOTIFICATION_DRAWER));
+            getPreferenceScreen().removePreference(findPreference(KEY_POWER_WIDGET));
+            getPreferenceScreen().removePreference(findPreference(KEY_STATUS_BAR));
         }
     }
 
