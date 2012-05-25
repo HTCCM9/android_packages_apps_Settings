@@ -38,6 +38,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
     private static final String KEY_POWER_WIDGET = "power_widget";
     private static final String KEY_STATUS_BAR = "status_bar";
+    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
 
     private ListPreference mFontSizePref;
 
@@ -56,6 +57,10 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(findPreference(KEY_NOTIFICATION_DRAWER));
             getPreferenceScreen().removePreference(findPreference(KEY_POWER_WIDGET));
             getPreferenceScreen().removePreference(findPreference(KEY_STATUS_BAR));
+        }
+        if (Utils.isScreenLarge() || !getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar)) {
+            getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
     }
 
