@@ -736,10 +736,6 @@
     <string name="dialog_title_font_size">Font size</string>
     <!-- Display settings screen, battery light repeat pulsing title -->
     <string name="battery_pulse_title">Pulse low battery light</string>
-    <!-- Sound & display settings screen, setting option name to change whether navigation bar is shown -->
-    <string name="navigation_bar_title">Enable/Disable Navigation Bar</string>
-    <!-- Sound & display settings screen, setting option summary to change whether navigation bar is shown -->
-    <string name="navigation_bar_summary">(Requires reboot)</string>
 
     <!-- Backlight #CM -->
     <string name="backlight_title">Automatic backlight</string>
@@ -855,6 +851,11 @@
     <string name="navigation_bar_reset_message">Delete current settings and restore to default?</string>
     <string name="navigation_bar_save_message">Navigation bar settings saved</string>
     <string name="navigation_bar_reset_toast">Navigation bar reset to default</string>
+
+    <!-- Sound & display settings screen, setting option name to change whether navigation bar is shown -->
+    <string name="navigation_bar_enable_title">Enable/Disable Navigation Bar</string>
+    <!-- Sound & display settings screen, setting option summary to change whether navigation bar is shown -->
+    <string name="navigation_bar_summary">(Requires reboot)</string>
 
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
