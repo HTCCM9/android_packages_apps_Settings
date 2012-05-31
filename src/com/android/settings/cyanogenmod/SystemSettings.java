@@ -17,7 +17,6 @@
 package com.android.settings.cyanogenmod;
 
 import android.app.ActivityManagerNative;
-import android.content.ContentResolver;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ import android.os.RemoteException;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
-import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 
 import com.android.settings.R;
@@ -50,7 +47,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContentResolver resolver = getActivity().getContentResolver();
 
         addPreferencesFromResource(R.xml.system_settings);
 
@@ -62,8 +58,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(findPreference(KEY_POWER_WIDGET));
             getPreferenceScreen().removePreference(findPreference(KEY_STATUS_BAR));
         }
-        if (Utils.isScreenLarge() || !(Settings.System.getInt(resolver,
-                Settings.System.NAVIGATION_BAR_VISIBLE, 0) == 1)) {
+        if (Utils.isScreenLarge() || !getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar)) {
             getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
     }
