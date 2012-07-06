@@ -63,7 +63,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String ROTATION_ANGLE_DELIM_FINAL = " & ";
 
     private CheckBoxPreference mVolumeWake;
-    private CheckBoxPreference mBatteryPulse;
     private CheckBoxPreference mNavigationBar;
     private CheckBoxPreference mElectronBeamAnimationOn;
     private CheckBoxPreference mElectronBeamAnimationOff;
